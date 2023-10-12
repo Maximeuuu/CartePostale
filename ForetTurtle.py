@@ -21,11 +21,10 @@ liste_etoileGlobale=[]
 largeurAffichage=1000
 hauteurAffichage=500
 
-
-def fenetre():
-    """
-    Permet de donner les propriétés générale de la fenêtre et de la tortue.
-    """
+"""
+Permet de donner les propriétés générale de la fenêtre et de la tortue.
+"""
+def fenetre():    
     setup(largeurAffichage,hauteurAffichage+100)
     title("Foret")
     speed(0)
@@ -33,23 +32,21 @@ def fenetre():
     ht()
     colormode(255)
 
-
+"""
+Permet d'empecher un bug de la fenetre lors de la fermeture.
+"""
 def arreter():
-    """
-    Permet d'empecher un bug de la fenetre lors de la fermeture.
-    """
     exitonclick()
     try:
         exitonclick()
     except Terminator:
         pass
 
-
+"""
+Dessine un triangle de coordonnees x,y et de cote c correspondant a un etage
+de branche du sapin.
+"""
 def triangle(x,y,c):
-    """
-    Dessine un triangle de coordonnees x,y et de cote c correspondant a un etage
-     de branche du sapin.
-    """
     up()
     goto(x,y)
     down()
@@ -60,12 +57,11 @@ def triangle(x,y,c):
         left(120)
     end_fill()
 
-
+"""
+Dessine un rectangle de coordonnées x,y et de largeur l correspondant au
+tronc du sapin.
+"""
 def tronc(x,y,l):
-    """
-    Dessine un rectangle de coordonnées x,y et de largeur l correspondant au
-     tronc du sapin.
-    """
     up()
     goto(x,y)
     down()
@@ -78,11 +74,10 @@ def tronc(x,y,l):
         right(90)
     end_fill()
 
-
+"""
+Dessine un sapin en appelant 3 fois la fonction triangle() et 1 fois tronc().
+"""
 def sapin(x,y,c):
-    """
-    Dessine un sapin en appelant 3 fois la fonction triangle() et 1 fois tronc().
-    """
     tronc(x+0.375*c,y,0.25*c)
     begin_fill()
     teinte_verte=0,160-c,0 #couleur en fonction de la taille
@@ -95,12 +90,11 @@ def sapin(x,y,c):
         c=0.75*c
     end_fill()
 
-
+"""
+Dessine une foret en utilisant la fonction sapin() le nombre de fois que
+l’utilisateur a choisit (nb_sapin).
+"""
 def foret(nb_sapin):
-    """
-    Dessine une foret en utilisant la fonction sapin() le nombre de fois que
-     l’utilisateur a choisit (nb_sapin).
-    """
     nombreSapin=0
     setheading(0)
 
@@ -132,12 +126,11 @@ def foret(nb_sapin):
 
             sapin(cooX,cooY,c)
 
-
+"""
+Dessine les differentes etoiles de coordonees x,y ; de taille t et de
+nombres de branches nb_branches.
+"""
 def etoile(x,y,t,nb_branches):
-    """
-    Dessine les differentes etoiles de coordonees x,y ; de taille t et de
-     nombres de branches nb_branches.
-    """
     up()
     goto(x,y)
     setheading(0)
@@ -153,11 +146,10 @@ def etoile(x,y,t,nb_branches):
 
     end_fill()
 
-
+"""
+Dessine une lune.
+"""
 def lune():
-    """
-    Dessine une lune.
-    """
     up()
     goto(largeurAffichage/2-60,hauteurAffichage/2-30)
     down()
@@ -174,11 +166,10 @@ def lune():
     circle(30,360)
     end_fill()
 
-
+"""
+Permet de faire scintiller quelques etoiles à la fin du programme.
+"""
 def etoile_brille():
-    """
-    Permet de faire scintiller quelques etoiles à la fin du programme.
-    """
     for _ in range(50): #plus ou moins 10 secondes
 
         #choisit une etoile aleatoire parmi la liste
@@ -197,13 +188,11 @@ def etoile_brille():
         for _ in range(4*nb_branches+1): #annule l'"effacement"
             undo()
 
-
+"""
+Dessine le ciel, la lune et les étoiles en appelant lune() et etoile() en
+fonction du nombre d'etoiles (nb_etoiles).
+"""
 def ciel(nb_etoiles):
-    """
-    Dessine le ciel, la lune et les étoiles en appelant lune() et etoile() en
-     fonction du nombre d'etoiles (nb_etoiles).
-    """
-
     up()
     goto(-(largeurAffichage/2),0)
     down()
@@ -233,10 +222,10 @@ def ciel(nb_etoiles):
         fillcolor("yellow")
         etoile(x,y,t,nb_branches)
 
+"""
+dessine des flocons de neiges tombant du ciel (ne fontionne pas)
+"""
 def neige():
-    """
-    dessine des flocons de neiges tombant du ciel (ne fontionne pas)
-    """
     liste_flocon=[]
     nb_flocon_dessine=0
     nb_flocon=int(largeurAffichage*12/1000) #proportions de flocons
@@ -261,13 +250,12 @@ def neige():
             undo()
         sleep(2)
 
-
+"""
+Demande à l’utilisateur le nombre de sapin et le nombre d’etoiles qu’il
+souhaite et appelle les fonctions fenetre(), ciel(), foret(),
+etoile_brille() puis arreter().
+"""
 def decors():
-    """
-    Demande à l’utilisateur le nombre de sapin et le nombre d’etoiles qu’il
-     souhaite et appelle les fonctions fenetre(), ciel(), foret(),
-     etoile_brille() puis arreter().
-    """
     nb_sapin=int(input("Combien de sapins ? "))
     nb_etoiles=int(input("Combien d'étoiles ? "))
     fenetre()
